@@ -155,7 +155,7 @@ const servicesData = [
     recommendedIntervalMonths: 6,
     rating: 4.9,
     bookingCount: 340,
-    imageUrl: 'https://images.unsplash.com/photo-1548839140-29a749e1bc4e?auto=format&fit=crop&w=600&q=80'
+    imageUrl: 'https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?auto=format&fit=crop&w=600&q=80'
   },
   {
     _id: '662000000000000000000002',
@@ -175,7 +175,7 @@ const servicesData = [
     recommendedIntervalMonths: 18,
     rating: 4.8,
     bookingCount: 190,
-    imageUrl: 'https://images.unsplash.com/photo-1548839140-29a749e1bc4e?auto=format&fit=crop&w=600&q=80'
+    imageUrl: 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=600&q=80'
   },
   // AC Service
   {
@@ -258,7 +258,7 @@ const servicesData = [
     recommendedIntervalMonths: 6,
     rating: 4.9,
     bookingCount: 380,
-    imageUrl: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80'
+    imageUrl: 'https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=600&q=80'
   },
   // Washing Machine
   {

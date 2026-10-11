@@ -184,6 +184,10 @@ export const BookingCheckoutPage: React.FC = () => {
                 <img
                   src={service.imageUrl || 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=200&q=80'}
                   alt={service.title}
+                  onError={(e: any) => {
+                    e.target.onerror = null;
+                    e.target.src = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=200&q=80';
+                  }}
                   className="h-16 w-16 rounded-2xl object-cover border border-slate-200"
                 />
                 <div>

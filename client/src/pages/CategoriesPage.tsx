@@ -148,6 +148,10 @@ export const CategoriesPage: React.FC = () => {
                   <img
                     src={service.imageUrl || 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80'}
                     alt={service.title}
+                    onError={(e: any) => {
+                      e.target.onerror = null;
+                      e.target.src = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80';
+                    }}
                     className="h-full w-full object-cover group-hover:scale-105 transition duration-300"
                   />
                   <div className="absolute top-3 right-3 rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-1 text-xs font-bold text-amber-700 flex items-center gap-1 shadow-sm">
