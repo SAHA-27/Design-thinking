@@ -1,0 +1,28 @@
+{
+  "name": "servease-ai",
+  "version": "1.0.0",
+  "description": "ServEase AI — Smart All-in-One Service Providing Platform",
+  "scripts": {
+    "install-all": "npm install && cd server && npm install && cd ../client && npm install",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "seed": "cd server && npm run seed",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "cd client && npm run build && cd ../server && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "service-booking",
+    "ai-assistant",
+    "technician-matching",
+    "digital-passport",
+    "react",
+    "node",
+    "express",
+    "mongodb"
+  ],
+  "author": "ServEase AI Team",
+  "license": "MIT"
+}
