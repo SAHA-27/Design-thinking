@@ -144,12 +144,22 @@ const bookingSchema = new mongoose.Schema({
     }
   },
 
-  // Live Tracking
+  // Real-Time Technician Live Tracking Telemetry
   tracking: {
     technicianLat: { type: Number, default: 13.0827 },
     technicianLng: { type: Number, default: 80.2707 },
     customerLat: { type: Number, default: 13.0850 },
     customerLng: { type: Number, default: 80.2730 },
+    speedKmh: { type: Number, default: 0 },
+    heading: { type: Number, default: 45 },
+    distanceKm: { type: Number, default: 2.4 },
+    routeWaypoints: { type: [[Number]], default: [] },
+    lastLocationUpdate: { type: Date, default: Date.now },
+    vehicleInfo: {
+      vehicleType: { type: String, default: 'Service Motorcycle' },
+      model: { type: String, default: 'Hero Splendor Pro' },
+      licensePlate: { type: String, default: 'TN 09 BK 4022' }
+    },
     estimatedArrivalMins: { type: Number, default: 25 },
     currentStepIndex: { type: Number, default: 0 },
     statusUpdates: [

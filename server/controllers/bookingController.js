@@ -599,3 +599,62 @@ exports.cancelBooking = async (req, res) => {
     res.status(500).json({ success: false, message: 'Failed to cancel booking.' });
   }
 };
+
+// Real-Time Live Tracking Telemetry Update (Food delivery-style pro movement)
+exports.updateTelemetry = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      technicianLat,
+      technicianLng,
+      speedKmh,
+      heading,
+      distanceKm,
+      estimatedArrivalMins
+    } = req.body;
+
+    const { isDb, Booking, mem } = getStore();
+
+    if (isDb) {
+      const booking = await Booking.findById(id);
+      if (!booking) return res.status(404).json({ success: false, message: 'Booking not found.' });
+
+      if (technicianLat !== undefined) booking.tracking.technicianLat = Number(technicianLat);
+      if (technicianLng !== undefined) booking.tracking.technicianLng = Number(technicianLng);
+      if (speedKmh !== undefined) booking.tracking.speedKmh = Number(speedKmh);
+      if (heading !== undefined) booking.tracking.heading = Number(heading);
+      if (distanceKm !== undefined) booking.tracking.distanceKm = Number(distanceKm);
+      if (estimatedArrivalMins !== undefined) booking.tracking.estimatedArrivalMins = Number(estimatedArrivalMins);
+      booking.tracking.lastLocationUpdate = new Date();
+
+      await booking.save();
+      return res.json({
+        success: true,
+        message: 'Telemetry updated successfully.',
+        tracking: booking.tracking
+      });
+    } else {
+      const idx = mem.bookings.findIndex(b => b._id.toString() === id.toString() || b.bookingNumber === id);
+      if (idx === -1) return res.status(404).json({ success: false, message: 'Booking not found.' });
+
+      const tr = mem.bookings[idx].tracking;
+      if (technicianLat !== undefined) tr.technicianLat = Number(technicianLat);
+      if (technicianLng !== undefined) tr.technicianLng = Number(technicianLng);
+      if (speedKmh !== undefined) tr.speedKmh = Number(speedKmh);
+      if (heading !== undefined) tr.heading = Number(heading);
+      if (distanceKm !== undefined) tr.distanceKm = Number(distanceKm);
+      if (estimatedArrivalMins !== undefined) tr.estimatedArrivalMins = Number(estimatedArrivalMins);
+      tr.lastLocationUpdate = new Date();
+
+      return res.json({
+        success: true,
+        message: 'Telemetry updated successfully.',
+        tracking: tr
+      });
+    }
+  } catch (error) {
+    console.error('updateTelemetry error:', error);
+    res.status(500).json({ success: false, message: 'Failed to update telemetry.' });
+  }
+};
+

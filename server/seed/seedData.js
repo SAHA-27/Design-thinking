@@ -797,17 +797,34 @@ const bookingsData = [
       }
     },
     tracking: {
-      technicianLat: 13.0845,
-      technicianLng: 80.2165,
+      technicianLat: 13.0842,
+      technicianLng: 80.2140,
       customerLat: 13.0850,
       customerLng: 80.2185,
-      estimatedArrivalMins: 8,
-      currentStepIndex: 3,
+      speedKmh: 32,
+      heading: 75,
+      distanceKm: 0.65,
+      vehicleInfo: {
+        vehicleType: 'Service Bike',
+        model: 'Honda Activa 6G',
+        licensePlate: 'TN 09 BK 4022'
+      },
+      routeWaypoints: [
+        [13.0815, 80.2085],
+        [13.0825, 80.2105],
+        [13.0832, 80.2120],
+        [13.0842, 80.2140],
+        [13.0847, 80.2155],
+        [13.0849, 80.2170],
+        [13.0850, 80.2185]
+      ],
+      estimatedArrivalMins: 6,
+      currentStepIndex: 2,
+      lastLocationUpdate: new Date(),
       statusUpdates: [
         { status: 'Pending', timestamp: new Date(Date.now() - 3600000 * 3), note: 'Booking received and verified.' },
         { status: 'Accepted', timestamp: new Date(Date.now() - 3600000 * 2), note: 'Technician Arun Kumar accepted your booking.' },
-        { status: 'Technician on the Way', timestamp: new Date(Date.now() - 3600000), note: 'Technician has dispatched from Anna Nagar Depot.' },
-        { status: 'In Progress', timestamp: new Date(Date.now() - 1800000), note: 'Diagnostic inspection started at your premise.' }
+        { status: 'Technician on the Way', timestamp: new Date(Date.now() - 1200000), note: 'Technician dispatched with tool kit on TN 09 BK 4022.' }
       ]
     },
     payment: {

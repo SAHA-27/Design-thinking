@@ -12,6 +12,7 @@ router.post('/:id/quote', authenticate, authorize('technician'), bookingControll
 router.put('/:id/quote-response', authenticate, bookingController.respondToQuote);
 router.post('/:id/proof', authenticate, authorize('technician'), bookingController.submitServiceProof);
 router.put('/:id/approve-proof', authenticate, bookingController.approveServiceProof);
+router.put('/:id/telemetry', authenticate, bookingController.updateTelemetry);
 router.put('/:id/cancel', authenticate, bookingController.cancelBooking);
 
 module.exports = router;

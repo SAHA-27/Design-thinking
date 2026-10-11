@@ -232,6 +232,17 @@ export const TechnicianBookingManagement: React.FC = () => {
                       <ShieldCheck className="h-4 w-4 text-teal-300" />
                       <span>Launch ProofCare™ Verified On-Site Wizard</span>
                     </button>
+
+                    {/* Live Tracking Map Link */}
+                    <a
+                      href={`/track/${job._id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1.5 w-full rounded-xl bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-700 font-bold py-2 px-3 text-xs transition flex items-center justify-center gap-1.5 border border-slate-200"
+                    >
+                      <MapPin className="h-3.5 w-3.5 text-teal-600" />
+                      <span>View Live Customer Tracking Screen</span>
+                    </a>
                   </div>
                 </div>
 

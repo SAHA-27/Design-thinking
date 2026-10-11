@@ -37,6 +37,10 @@ export const LiveTrackingPage: React.FC = () => {
   const [rating, setRating] = useState(5);
   const [reviewComment, setReviewComment] = useState('Great service! Professional and very punctual.');
 
+  // Real-Time Food-Delivery Style Simulation Controls
+  const [isSimulating, setIsSimulating] = useState(false);
+  const [currentWaypointIndex, setCurrentWaypointIndex] = useState(0);
+
   const fetchBooking = async () => {
     try {
       const res = await api.get(`/bookings/${id}`);
@@ -47,6 +51,104 @@ export const LiveTrackingPage: React.FC = () => {
       console.error('Failed to load tracking data:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Real-time GPS Telemetry simulation runner
+  useEffect(() => {
+    if (!isSimulating || !booking?.tracking?.routeWaypoints?.length) return;
+
+    const waypoints: [number, number][] = booking.tracking.routeWaypoints;
+    const interval = setInterval(async () => {
+      setCurrentWaypointIndex((prev) => {
+        const next = prev + 1;
+        if (next >= waypoints.length) {
+          setIsSimulating(false);
+          // Mark near destination
+          setBooking((b: any) => ({
+            ...b,
+            tracking: {
+              ...b.tracking,
+              technicianLat: waypoints[waypoints.length - 1][0],
+              technicianLng: waypoints[waypoints.length - 1][1],
+              speedKmh: 0,
+              distanceKm: 0,
+              estimatedArrivalMins: 1
+            }
+          }));
+          return prev;
+        }
+
+        const currPt = waypoints[next];
+        const prevPt = waypoints[next - 1];
+
+        // Calculate heading in degrees
+        const dLng = currPt[1] - prevPt[1];
+        const dLat = currPt[0] - prevPt[0];
+        const angleDeg = Math.round((Math.atan2(dLng, dLat) * 180) / Math.PI);
+        const heading = (angleDeg + 360) % 360;
+
+        // Remaining distance calculation
+        const remainingSteps = waypoints.length - 1 - next;
+        const remainingDist = Math.max(0.05, remainingSteps * 0.18);
+        const speed = Math.round(26 + Math.random() * 12);
+        const eta = Math.max(1, Math.round(remainingDist * 2.2));
+
+        // Update local state smoothly
+        setBooking((b: any) => ({
+          ...b,
+          tracking: {
+            ...b.tracking,
+            technicianLat: currPt[0],
+            technicianLng: currPt[1],
+            heading,
+            speedKmh: speed,
+            distanceKm: Number(remainingDist.toFixed(2)),
+            estimatedArrivalMins: eta
+          }
+        }));
+
+        // Send backend telemetry update
+        api.put(`/bookings/${id}/telemetry`, {
+          technicianLat: currPt[0],
+          technicianLng: currPt[1],
+          heading,
+          speedKmh: speed,
+          distanceKm: Number(remainingDist.toFixed(2)),
+          estimatedArrivalMins: eta
+        }).catch(() => {});
+
+        return next;
+      });
+    }, 2400);
+
+    return () => clearInterval(interval);
+  }, [isSimulating, currentWaypointIndex, booking?.tracking?.routeWaypoints, id]);
+
+  const toggleSimulation = () => {
+    if (!isSimulating && currentWaypointIndex >= (booking?.tracking?.routeWaypoints?.length || 5) - 1) {
+      setCurrentWaypointIndex(0);
+    }
+    setIsSimulating(!isSimulating);
+  };
+
+  const resetSimulation = () => {
+    setIsSimulating(false);
+    setCurrentWaypointIndex(0);
+    if (booking?.tracking?.routeWaypoints?.length) {
+      const first = booking.tracking.routeWaypoints[0];
+      setBooking((b: any) => ({
+        ...b,
+        tracking: {
+          ...b.tracking,
+          technicianLat: first[0],
+          technicianLng: first[1],
+          speedKmh: 30,
+          heading: 75,
+          distanceKm: 0.85,
+          estimatedArrivalMins: 8
+        }
+      }));
     }
   };
 
@@ -195,15 +297,53 @@ export const LiveTrackingPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left 2 Cols: Live Map & Work Proof */}
           <div className="lg:col-span-2 space-y-6">
+            {/* Food-Delivery Real-Time Simulation Control Bar */}
+            <div className="rounded-2xl bg-white border border-slate-200 p-4 shadow-sm flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-xs font-bold text-navy-900">Live GPS Telemetry:</span>
+                <span className="text-xs text-slate-500">
+                  {isSimulating ? 'Driver moving actively along turn-by-turn route' : 'Real-time telemetry ready'}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={toggleSimulation}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition shadow-xs flex items-center gap-1.5 ${
+                    isSimulating
+                      ? 'bg-amber-500 hover:bg-amber-600 text-white'
+                      : 'bg-teal-600 hover:bg-teal-500 text-white'
+                  }`}
+                >
+                  <Navigation className={`w-3.5 h-3.5 ${isSimulating ? 'animate-spin' : ''}`} />
+                  <span>{isSimulating ? 'Pause Movement' : 'Start Live GPS Demo'}</span>
+                </button>
+
+                <button
+                  onClick={resetSimulation}
+                  className="px-3 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition"
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+
             {/* Map Container */}
             <InteractiveMap
               technicianName={booking.technicianId?.name || 'Assigned Technician'}
-              technicianLat={booking.tracking?.technicianLat || 13.0845}
-              technicianLng={booking.tracking?.technicianLng || 80.2165}
+              technicianLat={booking.tracking?.technicianLat || 13.0842}
+              technicianLng={booking.tracking?.technicianLng || 80.2140}
               customerLat={booking.tracking?.customerLat || 13.0850}
               customerLng={booking.tracking?.customerLng || 80.2185}
+              speedKmh={booking.tracking?.speedKmh ?? 32}
+              heading={booking.tracking?.heading ?? 75}
+              distanceKm={booking.tracking?.distanceKm ?? 0.65}
+              routeWaypoints={booking.tracking?.routeWaypoints || []}
+              vehicleInfo={booking.tracking?.vehicleInfo}
               status={booking.status}
-              etaMins={booking.tracking?.estimatedArrivalMins || 12}
+              etaMins={booking.tracking?.estimatedArrivalMins || 6}
+              isSimulating={isSimulating}
             />
 
             {/* ServEase ProofCare Signature Banner */}
