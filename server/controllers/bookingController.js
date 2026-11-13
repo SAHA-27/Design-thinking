@@ -1,4 +1,5 @@
 const { getStore } = require('../services/dataStore');
+const loyaltyService = require('../services/loyaltyService');
 
 // Generate unique human-readable booking number
 function generateBookingNumber() {
@@ -55,7 +56,23 @@ exports.createBooking = async (req, res) => {
 
     // Emergency fee if emergency mode selected (₹100 priority dispatch)
     const emergencyFee = emergencyMode ? 100 : 0;
-    const taxableAmount = Math.max(0, subtotal + emergencyFee - discount);
+    const basePreRewards = Math.max(0, subtotal + emergencyFee - discount);
+
+    // Feature: Customer Loyalty Rewards Redemption
+    let loyaltyDiscount = 0;
+    const requestedRewards = Number(req.body.redeemRewards) || 0;
+    if (requestedRewards > 0) {
+      const wallet = await loyaltyService.getOrCreateWallet(customerId);
+      if (wallet.availableBalance < requestedRewards) {
+        return res.status(400).json({
+          success: false,
+          message: `Requested rewards discount (₹${requestedRewards}) exceeds your available wallet balance (₹${wallet.availableBalance}).`
+        });
+      }
+      loyaltyDiscount = Math.min(requestedRewards, basePreRewards);
+    }
+
+    const taxableAmount = Math.max(0, basePreRewards - loyaltyDiscount);
     const taxGst = Math.round(taxableAmount * 0.18);
     const total = taxableAmount + taxGst;
 
@@ -79,6 +96,7 @@ exports.createBooking = async (req, res) => {
         estimatedParts,
         taxGst,
         discount,
+        loyaltyDiscount,
         total
       },
       revisedQuote: {
@@ -148,6 +166,16 @@ exports.createBooking = async (req, res) => {
         referenceId: newBooking._id.toString(),
         isRead: false,
         createdAt: new Date()
+      });
+    }
+
+    // Debit rewards wallet if loyalty discount was applied
+    if (loyaltyDiscount > 0) {
+      await loyaltyService.redeemRewardsForBooking({
+        customerId,
+        amount: loyaltyDiscount,
+        bookingNumber,
+        bookingId: newBooking._id
       });
     }
 
@@ -302,6 +330,7 @@ exports.updateBookingStatus = async (req, res) => {
       if (status === 'Completed') {
         booking.payment.status = 'Paid';
         booking.payment.paidAt = new Date();
+        await loyaltyService.processBookingCompletionLoyalty(booking._id);
       }
 
       await booking.save();
@@ -335,6 +364,7 @@ exports.updateBookingStatus = async (req, res) => {
       if (status === 'Completed') {
         mem.bookings[idx].payment.status = 'Paid';
         mem.bookings[idx].payment.paidAt = new Date();
+        await loyaltyService.processBookingCompletionLoyalty(mem.bookings[idx]._id);
       }
 
       mem.notifications.unshift({
@@ -545,6 +575,7 @@ exports.approveServiceProof = async (req, res) => {
       booking.payment.status = 'Paid';
       booking.payment.paidAt = new Date();
       await booking.save();
+      await loyaltyService.processBookingCompletionLoyalty(booking._id);
 
       return res.json({ success: true, message: 'Work completion approved by customer!', booking });
     } else {
@@ -556,6 +587,7 @@ exports.approveServiceProof = async (req, res) => {
       mem.bookings[idx].tracking.currentStepIndex = 4;
       mem.bookings[idx].payment.status = 'Paid';
       mem.bookings[idx].payment.paidAt = new Date();
+      await loyaltyService.processBookingCompletionLoyalty(mem.bookings[idx]._id);
 
       return res.json({ success: true, message: 'Work completion approved by customer!', booking: mem.bookings[idx] });
     }
@@ -581,6 +613,9 @@ exports.cancelBooking = async (req, res) => {
       booking.cancelledBy = req.user.role;
       booking.tracking.currentStepIndex = -1;
       await booking.save();
+      if (booking.pricing && booking.pricing.loyaltyDiscount > 0) {
+        await loyaltyService.refundRewardsForBooking({ customerId: booking.customerId, amount: booking.pricing.loyaltyDiscount, bookingNumber: booking.bookingNumber, bookingId: booking._id });
+      }
 
       return res.json({ success: true, message: 'Booking cancelled.', booking });
     } else {
@@ -591,6 +626,9 @@ exports.cancelBooking = async (req, res) => {
       mem.bookings[idx].cancellationReason = reason || 'Cancelled by customer';
       mem.bookings[idx].cancelledBy = req.user.role;
       mem.bookings[idx].tracking.currentStepIndex = -1;
+      if (mem.bookings[idx].pricing && mem.bookings[idx].pricing.loyaltyDiscount > 0) {
+        await loyaltyService.refundRewardsForBooking({ customerId: mem.bookings[idx].customerId, amount: mem.bookings[idx].pricing.loyaltyDiscount, bookingNumber: mem.bookings[idx].bookingNumber, bookingId: mem.bookings[idx]._id });
+      }
 
       return res.json({ success: true, message: 'Booking cancelled.', booking: mem.bookings[idx] });
     }

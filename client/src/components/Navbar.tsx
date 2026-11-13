@@ -15,6 +15,7 @@ import {
   Zap,
   LayoutDashboard,
   ShieldAlert,
+  Gift,
   LogOut
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -62,7 +63,7 @@ export const Navbar: React.FC = () => {
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2 text-teal-400 font-medium">
             <Sparkles className="h-3.5 w-3.5 animate-pulse" />
-            <span>ServEase AI Live Demo Mode:</span>
+            <span>Smart Service Booking Platform Live Demo Mode:</span>
             <span className="text-slate-300 hidden sm:inline">Switch roles instantly with 1-click</span>
           </div>
           <div className="flex items-center gap-1.5">
@@ -105,8 +106,8 @@ export const Navbar: React.FC = () => {
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-lg font-extrabold tracking-tight text-navy-900">ServEase</span>
-                <span className="rounded-md bg-teal-500 px-1.5 py-0.5 text-[10px] font-bold tracking-wider text-white uppercase">AI</span>
+                <span className="text-lg font-extrabold tracking-tight text-navy-900">Smart Service</span>
+                <span className="rounded-md bg-teal-500 px-1.5 py-0.5 text-[10px] font-bold tracking-wider text-white uppercase">Platform</span>
               </div>
               <p className="text-[10px] text-slate-500 font-medium hidden sm:block leading-tight">Every Service, One Smart Platform</p>
             </div>
@@ -164,6 +165,17 @@ export const Navbar: React.FC = () => {
               </Link>
             )}
 
+            {isAuthenticated && user?.role === 'customer' && (
+              <Link
+                to="/rewards"
+                className={`px-3 py-2 rounded-lg flex items-center gap-1.5 transition ${
+                  isActive('/rewards') ? 'text-teal-600 bg-teal-50 font-semibold' : 'text-slate-600 hover:text-navy-900 hover:bg-slate-100'
+                }`}
+              >
+                <Gift className="h-4 w-4 text-amber-500" />
+                <span>Rewards</span>
+              </Link>
+            )}
             {isAuthenticated && user?.role === 'technician' && (
               <Link
                 to="/technician"
@@ -238,10 +250,17 @@ export const Navbar: React.FC = () => {
             ) : (
               <div className="flex items-center gap-2">
                 <Link
-                  to="/auth"
-                  className="rounded-xl bg-navy-900 px-4 py-2 text-xs sm:text-sm font-bold text-white hover:bg-navy-800 transition shadow-sm"
+                  to="/login"
+                  className="rounded-xl border border-slate-300 bg-white px-3.5 py-1.5 text-xs sm:text-sm font-bold text-slate-700 hover:bg-slate-50 hover:text-navy-900 transition shadow-2xs"
                 >
-                  {t.navLogin}
+                  {t.navLogin || 'Sign In'}
+                </Link>
+                <Link
+                  to="/register"
+                  className="rounded-xl bg-teal-600 px-3.5 py-1.5 text-xs sm:text-sm font-bold text-white hover:bg-teal-500 transition shadow-xs flex items-center gap-1.5"
+                >
+                  <UserIcon className="h-3.5 w-3.5" />
+                  <span>{t.navRegister || 'Sign Up'}</span>
                 </Link>
               </div>
             )}
@@ -297,6 +316,16 @@ export const Navbar: React.FC = () => {
               {t.navBookings}
             </Link>
           )}
+          {isAuthenticated && user?.role === 'customer' && (
+            <Link
+              to="/rewards"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-amber-800 bg-amber-50"
+            >
+              <Gift className="h-4 w-4 text-amber-600" />
+              <span>Rewards & Wallet</span>
+            </Link>
+          )}
           {isAuthenticated && user?.role === 'technician' && (
             <Link
               to="/technician"
@@ -314,6 +343,26 @@ export const Navbar: React.FC = () => {
             >
               {t.navAdmin}
             </Link>
+          )}
+
+          {!isAuthenticated && (
+            <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
+              <Link
+                to="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full text-center rounded-xl border border-slate-300 bg-white py-2 text-sm font-bold text-slate-700 hover:bg-slate-50"
+              >
+                {t.navLogin || 'Sign In'}
+              </Link>
+              <Link
+                to="/register"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full text-center rounded-xl bg-teal-600 py-2 text-sm font-bold text-white hover:bg-teal-500 flex items-center justify-center gap-1.5 shadow-xs"
+              >
+                <UserIcon className="h-4 w-4" />
+                <span>{t.navRegister || 'Sign Up'}</span>
+              </Link>
+            </div>
           )}
         </div>
       )}

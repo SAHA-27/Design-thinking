@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const technicianProfileSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
+  specialization: { type: String, default: '' },
+  category: { type: String, default: '' },
   bio: { type: String, default: '' },
   skills: [{ type: String }], // e.g. ['RO Water Purifier', 'AC Repair', 'Plumbing']
   serviceAreas: [{ type: String }], // e.g. ['Anna Nagar', 'T. Nagar', 'Velachery', 'Adyar', 'Tambaram']

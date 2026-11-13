@@ -12,11 +12,14 @@ import {
   DollarSign, 
   CreditCard,
   User as UserIcon,
-  Phone
+  Phone,
+  Gift,
+  Award
 } from 'lucide-react';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
+import { mockTechnicians } from '../data/mockTechnicians';
 
 export const BookingCheckoutPage: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -38,8 +41,8 @@ export const BookingCheckoutPage: React.FC = () => {
   const [problemDescription, setProblemDescription] = useState(
     searchParams.get('problem') || 'Need comprehensive inspection and service.'
   );
-  const [scheduledDate, setScheduledDate] = useState('2026-10-15');
-  const [scheduledTime, setScheduledTime] = useState('10:00 AM - 12:00 PM');
+  const [scheduledDate, setScheduledDate] = useState(searchParams.get('date') || '2026-10-15');
+  const [scheduledTime, setScheduledTime] = useState(searchParams.get('time') || '10:00 AM - 12:00 PM');
   const [emergencyMode, setEmergencyMode] = useState(isEmergencyParam);
   const [selectedAssetId, setSelectedAssetId] = useState(assetIdParam || '');
 
@@ -55,6 +58,9 @@ export const BookingCheckoutPage: React.FC = () => {
   const [appliedDiscount, setAppliedDiscount] = useState(50);
   const [couponMessage, setCouponMessage] = useState('Promo code SERVE50 applied (₹50 discount)!');
   const [paymentMethod, setPaymentMethod] = useState('UPI / Online Card');
+  const [wallet, setWallet] = useState<any | null>(null);
+  const [applyRewards, setApplyRewards] = useState(false);
+  const [redeemAmount, setRedeemAmount] = useState<number>(0);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -68,17 +74,31 @@ export const BookingCheckoutPage: React.FC = () => {
         }
 
         if (technicianIdParam) {
-          const techRes = await api.get(`/technicians/${technicianIdParam}`);
-          if (techRes.data.success) {
-            setTechnician(techRes.data.technician);
+          try {
+            const techRes = await api.get(`/technicians/${technicianIdParam}`);
+            if (techRes.data.success && techRes.data.technician) {
+              setTechnician(techRes.data.technician);
+            } else {
+              const found = mockTechnicians.find(m => m._id === technicianIdParam || m.userId?._id === technicianIdParam);
+              if (found) setTechnician(found);
+            }
+          } catch (e) {
+            const found = mockTechnicians.find(m => m._id === technicianIdParam || m.userId?._id === technicianIdParam);
+            if (found) setTechnician(found);
           }
         }
 
-        // Load customer assets
+        // Load customer assets and loyalty wallet
         if (isAuthenticated) {
-          const assetRes = await api.get('/passport/assets');
-          if (assetRes.data.success) {
+          const [assetRes, walletRes] = await Promise.all([
+            api.get('/passport/assets').catch(() => null),
+            api.get('/loyalty/wallet').catch(() => null)
+          ]);
+          if (assetRes?.data?.success) {
             setAssets(assetRes.data.assets);
+          }
+          if (walletRes?.data?.success) {
+            setWallet(walletRes.data.wallet);
           }
         }
       } catch (err) {
@@ -115,7 +135,15 @@ export const BookingCheckoutPage: React.FC = () => {
   const labor = service?.basePrice || 499;
   const parts = service?.sparePartsEstimateMin || 0;
   const emergencyCost = emergencyMode ? 100 : 0;
-  const subtotal = Math.max(0, visiting + labor + parts + emergencyCost - appliedDiscount);
+  const grossBase = visiting + labor + parts + emergencyCost;
+  
+  const maxRedeemable = Math.max(
+    0,
+    Math.min(wallet?.availableBalance || 0, grossBase - appliedDiscount)
+  );
+  const effectiveRewardDiscount = applyRewards ? Math.min(redeemAmount, maxRedeemable) : 0;
+
+  const subtotal = Math.max(0, grossBase - appliedDiscount - effectiveRewardDiscount);
   const taxGst = Math.round(subtotal * 0.18);
   const total = subtotal + taxGst;
 
@@ -138,6 +166,7 @@ export const BookingCheckoutPage: React.FC = () => {
         problemDescription,
         emergencyMode,
         couponCode,
+        redeemRewards: effectiveRewardDiscount,
         paymentMethod,
         registeredAssetId: selectedAssetId || undefined
       };
@@ -388,6 +417,15 @@ export const BookingCheckoutPage: React.FC = () => {
                     <span>-₹{appliedDiscount}</span>
                   </div>
                 )}
+                {effectiveRewardDiscount > 0 && (
+                  <div className="flex justify-between text-amber-700 font-bold">
+                    <span className="flex items-center gap-1">
+                      <Gift className="h-3.5 w-3.5" />
+                      <span>Loyalty Bonus Discount</span>
+                    </span>
+                    <span>-₹{effectiveRewardDiscount}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-slate-500 text-xs">
                   <span>Mandatory GST (18%)</span>
                   <span>₹{taxGst}</span>
@@ -397,6 +435,77 @@ export const BookingCheckoutPage: React.FC = () => {
                   <span>{t.totalEstimated}</span>
                   <span className="text-xl text-teal-700">₹{total}</span>
                 </div>
+              </div>
+
+              {/* Rewards Wallet Redemption Card */}
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="p-1.5 rounded-lg bg-amber-500 text-white">
+                      <Gift className="h-4 w-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-amber-950">Loyalty Bonus Wallet</div>
+                      <div className="text-[11px] text-amber-700">
+                        Available: <strong className="font-extrabold">₹{wallet?.availableBalance || 0}</strong> ({wallet?.currentTier || 'Bronze'} Tier)
+                      </div>
+                    </div>
+                  </div>
+                  <Link to="/rewards" className="text-[11px] font-bold text-amber-800 hover:underline">
+                    View Rules
+                  </Link>
+                </div>
+
+                {wallet && wallet.availableBalance > 0 ? (
+                  <div className="space-y-2 pt-2 border-t border-amber-200/60">
+                    <label className="flex items-center gap-2 text-xs font-bold text-slate-800 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={applyRewards}
+                        onChange={(e) => {
+                          const checked = e.target.checked;
+                          setApplyRewards(checked);
+                          if (checked && redeemAmount === 0) {
+                            setRedeemAmount(maxRedeemable);
+                          }
+                        }}
+                        className="h-4 w-4 rounded border-amber-300 text-amber-600 focus:ring-amber-500"
+                      />
+                      <span>Redeem Bonus Balance on this Booking</span>
+                    </label>
+
+                    {applyRewards && (
+                      <div className="flex items-center gap-2 pt-1">
+                        <div className="relative flex-1">
+                          <span className="absolute left-2.5 top-2 text-xs font-bold text-slate-400">₹</span>
+                          <input
+                            type="number"
+                            min={1}
+                            max={maxRedeemable}
+                            value={redeemAmount || ''}
+                            onChange={(e) => {
+                              const val = Number(e.target.value);
+                              setRedeemAmount(Math.min(val, maxRedeemable));
+                            }}
+                            placeholder="0"
+                            className="w-full rounded-xl border border-amber-300 bg-white pl-6 pr-3 py-1.5 text-xs font-bold text-slate-900 focus:border-amber-500 focus:outline-hidden"
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setRedeemAmount(maxRedeemable)}
+                          className="rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold px-3 py-1.5 text-xs transition whitespace-nowrap shadow-xs"
+                        >
+                          Apply Max (₹{maxRedeemable})
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <p className="text-[11px] text-amber-850 pt-1 border-t border-amber-200/60">
+                    Complete 5 services to unlock your first <strong>₹100 Bronze bonus</strong>.
+                  </p>
+                )}
               </div>
 
               {/* Promo Code Input */}

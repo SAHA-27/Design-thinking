@@ -426,7 +426,7 @@ const usersData = [
     password: '',
     phone: '+91 97890 54321',
     role: 'technician',
-    avatar: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=200&q=80',
+    avatar: '/avatars/tech_arjun_kumar.jpg',
     language: 'en'
   },
   // 3. Verified Technician 2 (Auto & Bike Specialist)
@@ -437,7 +437,7 @@ const usersData = [
     password: '',
     phone: '+91 94440 98765',
     role: 'technician',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+    avatar: '/avatars/tech_rahul_m.jpg',
     language: 'ta'
   },
   // 4. Verified Technician 3 (Electrical & Appliances)
@@ -448,13 +448,164 @@ const usersData = [
     password: '',
     phone: '+91 99620 11223',
     role: 'technician',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+    avatar: '/avatars/tech_suresh_babu.jpg',
     language: 'en'
   },
-  // 5. Admin
+  // 15 Dedicated Verified Technicians
+  {
+    _id: '660000000000000000000011',
+    name: 'Arjun Kumar',
+    email: 'arjun.tech@smartservice.ai',
+    password: '',
+    phone: '+91 98401 12345',
+    role: 'technician',
+    avatar: '/avatars/tech_arjun_kumar.jpg',
+    language: 'en'
+  },
+  {
+    _id: '660000000000000000000012',
+    name: 'Karthik Raj',
+    email: 'karthik.tech@smartservice.ai',
+    password: '',
+    phone: '+91 97892 23456',
+    role: 'technician',
+    avatar: '/avatars/tech_karthik_raj.jpg',
+    language: 'en'
+  },
+  {
+    _id: '660000000000000000000013',
+    name: 'Praveen Kumar',
+    email: 'praveen.tech@smartservice.ai',
+    password: '',
+    phone: '+91 94441 34567',
+    role: 'technician',
+    avatar: '/avatars/tech_praveen_kumar.jpg',
+    language: 'ta'
+  },
+  {
+    _id: '660000000000000000000014',
+    name: 'Sanjay Kumar',
+    email: 'sanjay.tech@smartservice.ai',
+    password: '',
+    phone: '+91 99623 45678',
+    role: 'technician',
+    avatar: '/avatars/tech_sanjay_kumar.jpg',
+    language: 'en'
+  },
+  {
+    _id: '660000000000000000000015',
+    name: 'Naveen Raj',
+    email: 'naveen.tech@smartservice.ai',
+    password: '',
+    phone: '+91 98842 56789',
+    role: 'technician',
+    avatar: '/avatars/tech_naveen_raj.jpg',
+    language: 'ta'
+  },
+  {
+    _id: '660000000000000000000016',
+    name: 'Vignesh S',
+    email: 'vignesh.tech@smartservice.ai',
+    password: '',
+    phone: '+91 97910 67890',
+    role: 'technician',
+    avatar: '/avatars/tech_vignesh_s.jpg',
+    language: 'en'
+  },
+  {
+    _id: '660000000000000000000017',
+    name: 'Hari Prasad',
+    email: 'hari.tech@smartservice.ai',
+    password: '',
+    phone: '+91 96001 78901',
+    role: 'technician',
+    avatar: '/avatars/tech_hari_prasad.jpg',
+    language: 'en'
+  },
+  {
+    _id: '660000000000000000000018',
+    name: 'Dinesh Kumar',
+    email: 'dinesh.tech@smartservice.ai',
+    password: '',
+    phone: '+91 98410 89012',
+    role: 'technician',
+    avatar: '/avatars/tech_dinesh_kumar.jpg',
+    language: 'en'
+  },
+  {
+    _id: '660000000000000000000019',
+    name: 'Rahul M',
+    email: 'rahul.tech@smartservice.ai',
+    password: '',
+    phone: '+91 94450 90123',
+    role: 'technician',
+    avatar: '/avatars/tech_rahul_m.jpg',
+    language: 'ta'
+  },
+  {
+    _id: '660000000000000000000020',
+    name: 'Suresh Babu',
+    email: 'suresh.carpenter@smartservice.ai',
+    password: '',
+    phone: '+91 99620 22334',
+    role: 'technician',
+    avatar: '/avatars/tech_suresh_babu.jpg',
+    language: 'en'
+  },
+  {
+    _id: '660000000000000000000021',
+    name: 'Ajay Kumar',
+    email: 'ajay.tech@smartservice.ai',
+    password: '',
+    phone: '+91 98409 01234',
+    role: 'technician',
+    avatar: '/avatars/tech_ajay_kumar.jpg',
+    language: 'en'
+  },
+  {
+    _id: '660000000000000000000022',
+    name: 'Manoj Kumar',
+    email: 'manojk.tech@smartservice.ai',
+    password: '',
+    phone: '+91 97899 12340',
+    role: 'technician',
+    avatar: '/avatars/tech_manoj_kumar.jpg',
+    language: 'en'
+  },
+  {
+    _id: '660000000000000000000023',
+    name: 'Gokul Raj',
+    email: 'gokul.tech@smartservice.ai',
+    password: '',
+    phone: '+91 94449 23451',
+    role: 'technician',
+    avatar: '/avatars/tech_gokul_raj.jpg',
+    language: 'ta'
+  },
+  {
+    _id: '660000000000000000000024',
+    name: 'Surya Prakash',
+    email: 'surya.tech@smartservice.ai',
+    password: '',
+    phone: '+91 99401 34562',
+    role: 'technician',
+    avatar: '/avatars/tech_surya_prakash.jpg',
+    language: 'en'
+  },
+  {
+    _id: '660000000000000000000025',
+    name: 'Balaji R',
+    email: 'balaji.tech@smartservice.ai',
+    password: '',
+    phone: '+91 98405 45673',
+    role: 'technician',
+    avatar: '/avatars/tech_balaji_r.jpg',
+    language: 'en'
+  },
+  // Admin
   {
     _id: '660000000000000000000009',
-    name: 'ServEase Admin Operations',
+    name: 'Smart Service Admin Operations',
     email: 'admin@servease.ai',
     password: '',
     phone: '+91 90000 00001',
@@ -562,6 +713,501 @@ const technicianProfilesData = [
       lat: 12.9815,
       lng: 80.2180,
       addressText: 'Velachery Main Road, Chennai'
+    }
+  },
+  // 1. Arjun Kumar – AC Repair Specialist
+  {
+    _id: '660500000000000000000011',
+    userId: '660000000000000000000011',
+    bio: 'Certified HVAC master technician with 8+ years experience in inverter split ACs, deep jet pressure cleaning, and eco-friendly gas recharging.',
+    skills: ['AC Deep Jet Cleaning', 'Gas Leakage Diagnostics', 'Inverter PCB Repair', 'Split & Window AC Install'],
+    serviceAreas: ['Anna Nagar', 'Kilpauk', 'Shenoy Nagar', 'Aminjikarai', 'Koyambedu'],
+    experienceYears: 8,
+    visitingFee: 149,
+    hourlyRate: 350,
+    rating: 4.92,
+    reviewCount: 138,
+    verified: true,
+    verificationStatus: 'verified',
+    idType: 'Govt. Skill Certified & Aadhaar Cleared',
+    isAvailable: true,
+    emergencyAvailable: true,
+    completedJobsCount: 164,
+    totalEarnings: 94200,
+    trustScore: 98,
+    trustFactors: {
+      idVerified: true,
+      completionRate: 99,
+      punctualityRate: 98,
+      rehireRate: 92,
+      zeroComplaintBadge: true
+    },
+    currentLocation: {
+      lat: 13.0850,
+      lng: 80.2150,
+      addressText: 'Anna Nagar Roundtana, Chennai'
+    }
+  },
+  // 2. Karthik Raj – Electrician
+  {
+    _id: '660500000000000000000012',
+    userId: '660000000000000000000012',
+    bio: 'Govt. Licensed Class-A Wireman. Specializes in residential electrical safety audits, MCB upgrades, earthing checks, and prompt short circuit detection.',
+    skills: ['MCB & Distribution Box', 'Concealed Wiring Repair', 'Ceiling Fan & Chandelier', 'Safety Earthing Audits'],
+    serviceAreas: ['T. Nagar', 'Kodambakkam', 'Nungambakkam', 'West Mambalam'],
+    experienceYears: 6,
+    visitingFee: 119,
+    hourlyRate: 280,
+    rating: 4.85,
+    reviewCount: 112,
+    verified: true,
+    verificationStatus: 'verified',
+    idType: 'Class-A Electrical Wireman License',
+    isAvailable: true,
+    emergencyAvailable: true,
+    completedJobsCount: 135,
+    totalEarnings: 76000,
+    trustScore: 95,
+    trustFactors: {
+      idVerified: true,
+      completionRate: 98,
+      punctualityRate: 95,
+      rehireRate: 88,
+      zeroComplaintBadge: true
+    },
+    currentLocation: {
+      lat: 13.0418,
+      lng: 80.2341,
+      addressText: 'Pondy Bazaar, T. Nagar'
+    }
+  },
+  // 3. Praveen Kumar – RO Water Purifier Technician
+  {
+    _id: '660500000000000000000013',
+    userId: '660000000000000000000013',
+    bio: 'Certified water purification engineer with calibrated digital TDS meters. Expert in Kent, Aquaguard, Pureit, and Livpure multi-stage filtration.',
+    skills: ['RO Membrane Replacement', 'Sediment & Carbon Filter Care', 'TDS Calibration', 'Booster Pump Overhaul'],
+    serviceAreas: ['Velachery', 'Madipakkam', 'Adambakkam', 'Guindy'],
+    experienceYears: 7,
+    visitingFee: 129,
+    hourlyRate: 300,
+    rating: 4.93,
+    reviewCount: 164,
+    verified: true,
+    verificationStatus: 'verified',
+    idType: 'WQA Water Quality Specialist Verified',
+    isAvailable: true,
+    emergencyAvailable: false,
+    completedJobsCount: 198,
+    totalEarnings: 104500,
+    trustScore: 97,
+    trustFactors: {
+      idVerified: true,
+      completionRate: 99,
+      punctualityRate: 97,
+      rehireRate: 94,
+      zeroComplaintBadge: true
+    },
+    currentLocation: {
+      lat: 12.9815,
+      lng: 80.2180,
+      addressText: 'Velachery Main Road, Chennai'
+    }
+  },
+  // 4. Sanjay Kumar – Plumber
+  {
+    _id: '660500000000000000000014',
+    userId: '660000000000000000000014',
+    bio: 'Veteran plumbing contractor with 9 years handling concealed pipeline leaks, high-pressure jet drain clearing, and premium sanitary fittings.',
+    skills: ['Concealed Leak Detection', 'Drain & Trap Jet Unblocking', 'Water Motor & Overhead Tank', 'Jaquar / Kohler Fittings'],
+    serviceAreas: ['Adyar', 'Besant Nagar', 'Thiruvanmiyur', 'Kotturpuram'],
+    experienceYears: 9,
+    visitingFee: 139,
+    hourlyRate: 310,
+    rating: 4.82,
+    reviewCount: 94,
+    verified: true,
+    verificationStatus: 'verified',
+    idType: 'Aadhaar Verified & Trade Licensed',
+    isAvailable: true,
+    emergencyAvailable: true,
+    completedJobsCount: 147,
+    totalEarnings: 88900,
+    trustScore: 94,
+    trustFactors: {
+      idVerified: true,
+      completionRate: 96,
+      punctualityRate: 94,
+      rehireRate: 87,
+      zeroComplaintBadge: true
+    },
+    currentLocation: {
+      lat: 13.0012,
+      lng: 80.2565,
+      addressText: 'Adyar Signal, Chennai'
+    }
+  },
+  // 5. Naveen Raj – Washing Machine Repair
+  {
+    _id: '660500000000000000000015',
+    userId: '660000000000000000000015',
+    bio: 'Factory-trained technician for IFB, Bosch, Whirlpool, LG, and Samsung fully automatic front-load and top-load washing machines.',
+    skills: ['Front Load Drum Bearing Fix', 'Inverter Drive Motor', 'Drain Pump & Solenoid Valve', 'Vibration & Error Code Diagnostics'],
+    serviceAreas: ['Porur', 'Ramapuram', 'Valasaravakkam', 'Alwarthirunagar'],
+    experienceYears: 5,
+    visitingFee: 149,
+    hourlyRate: 320,
+    rating: 4.79,
+    reviewCount: 78,
+    verified: true,
+    verificationStatus: 'verified',
+    idType: 'Brand Certified Appliance Technician',
+    isAvailable: true,
+    emergencyAvailable: false,
+    completedJobsCount: 110,
+    totalEarnings: 67200,
+    trustScore: 92,
+    trustFactors: {
+      idVerified: true,
+      completionRate: 95,
+      punctualityRate: 93,
+      rehireRate: 86,
+      zeroComplaintBadge: true
+    },
+    currentLocation: {
+      lat: 13.0382,
+      lng: 80.1565,
+      addressText: 'Mount Poonamallee Road, Porur'
+    }
+  },
+  // 6. Vignesh S – Refrigerator Repair
+  {
+    _id: '660500000000000000000016',
+    userId: '660000000000000000000016',
+    bio: 'Refrigeration mechanics specialist covering frost-free, inverter, side-by-side, and double door models. Instant on-site cooling diagnosis.',
+    skills: ['Compressor Replacement', 'Gas Charging & Cooling Coil', 'Digital Inverter Inverter Board', 'Defrost Heater & Thermostat'],
+    serviceAreas: ['Mylapore', 'Mandaveli', 'Royapettah', 'Alwarpet'],
+    experienceYears: 6,
+    visitingFee: 149,
+    hourlyRate: 340,
+    rating: 4.88,
+    reviewCount: 106,
+    verified: true,
+    verificationStatus: 'verified',
+    idType: 'Aadhaar Verified & Refrigeration Certified',
+    isAvailable: true,
+    emergencyAvailable: true,
+    completedJobsCount: 152,
+    totalEarnings: 89400,
+    trustScore: 96,
+    trustFactors: {
+      idVerified: true,
+      completionRate: 98,
+      punctualityRate: 96,
+      rehireRate: 90,
+      zeroComplaintBadge: true
+    },
+    currentLocation: {
+      lat: 13.0336,
+      lng: 80.2676,
+      addressText: 'Luz Corner, Mylapore'
+    }
+  },
+  // 7. Hari Prasad – Home Appliance Technician
+  {
+    _id: '660500000000000000000017',
+    userId: '660000000000000000000017',
+    bio: 'Multi-brand technician for kitchen and bathroom appliances. Specialized in microwave ovens, induction stoves, water heaters (geysers), and chimneys.',
+    skills: ['Water Geyser Heating Coil', 'Microwave Magnetron & Diode', 'Kitchen Chimney Deep Clean', 'Induction Cooktop Motherboard'],
+    serviceAreas: ['Sholinganallur', 'Karapakkam', 'Navalur', 'Perungudi'],
+    experienceYears: 8,
+    visitingFee: 129,
+    hourlyRate: 300,
+    rating: 4.86,
+    reviewCount: 120,
+    verified: true,
+    verificationStatus: 'verified',
+    idType: 'Consumer Electronics Council Certified',
+    isAvailable: true,
+    emergencyAvailable: false,
+    completedJobsCount: 168,
+    totalEarnings: 93500,
+    trustScore: 95,
+    trustFactors: {
+      idVerified: true,
+      completionRate: 97,
+      punctualityRate: 95,
+      rehireRate: 89,
+      zeroComplaintBadge: true
+    },
+    currentLocation: {
+      lat: 12.9010,
+      lng: 80.2279,
+      addressText: 'OMR Tech Corridor, Sholinganallur'
+    }
+  },
+  // 8. Dinesh Kumar – CCTV Installation Specialist
+  {
+    _id: '660500000000000000000018',
+    userId: '660000000000000000000018',
+    bio: 'Electronic surveillance specialist. Provides setup, cabling, remote mobile viewing, DVR/NVR configuration, and night-vision color IP camera installs.',
+    skills: ['4K IP & Analog Camera Setup', 'DVR / NVR Cloud Setup', 'Smart Mobile App Sync', 'Concealed Optical Fiber Cabling'],
+    serviceAreas: ['Tambaram', 'Chromepet', 'Pallavaram', 'Sanatorium'],
+    experienceYears: 6,
+    visitingFee: 199,
+    hourlyRate: 380,
+    rating: 4.91,
+    reviewCount: 88,
+    verified: true,
+    verificationStatus: 'verified',
+    idType: 'CP Plus & Hikvision Certified Installer',
+    isAvailable: true,
+    emergencyAvailable: false,
+    completedJobsCount: 124,
+    totalEarnings: 82000,
+    trustScore: 97,
+    trustFactors: {
+      idVerified: true,
+      completionRate: 99,
+      punctualityRate: 97,
+      rehireRate: 91,
+      zeroComplaintBadge: true
+    },
+    currentLocation: {
+      lat: 12.9249,
+      lng: 80.1000,
+      addressText: 'GST Road, Tambaram'
+    }
+  },
+  // 9. Rahul M – Bike Service Technician
+  {
+    _id: '660500000000000000000019',
+    userId: '660000000000000000000019',
+    bio: 'Doorstep two-wheeler technician with mobile hydraulic toolkit. Covers Activa, Jupiter, Royal Enfield, Yamaha, and KTM periodic servicing.',
+    skills: ['Doorstep Oil & Filter Change', 'Brake Pad & Shoe Tuning', 'Spark Plug & Carburetor Clean', 'Battery Load Testing & Jumpstart'],
+    serviceAreas: ['T. Nagar', 'Kodambakkam', 'Ashok Nagar', 'Vadapalani'],
+    experienceYears: 7,
+    visitingFee: 149,
+    hourlyRate: 310,
+    rating: 4.89,
+    reviewCount: 145,
+    verified: true,
+    verificationStatus: 'verified',
+    idType: 'Automotive Skill Development Council (ASDC)',
+    isAvailable: true,
+    emergencyAvailable: true,
+    completedJobsCount: 176,
+    totalEarnings: 99000,
+    trustScore: 96,
+    trustFactors: {
+      idVerified: true,
+      completionRate: 98,
+      punctualityRate: 96,
+      rehireRate: 91,
+      zeroComplaintBadge: true
+    },
+    currentLocation: {
+      lat: 13.0489,
+      lng: 80.2088,
+      addressText: 'Vadapalani Junction, Chennai'
+    }
+  },
+  // 10. Suresh Babu – Carpenter
+  {
+    _id: '660500000000000000000020',
+    userId: '660000000000000000000020',
+    bio: 'Master craftsman with 10 years experience in modular kitchens, custom wardrobes, door lock replacements, and flat-pack furniture assembly.',
+    skills: ['Modular Furniture Assembly', 'Door Lock & Hinges Alignment', 'Custom Cabinet Repair', 'Termite Proofing & Mesh Fit'],
+    serviceAreas: ['Kilpauk', 'Egmore', 'Purasawalkam', 'Vepery'],
+    experienceYears: 10,
+    visitingFee: 149,
+    hourlyRate: 300,
+    rating: 4.84,
+    reviewCount: 72,
+    verified: true,
+    verificationStatus: 'verified',
+    idType: 'National Skill Development Corporation (NSDC)',
+    isAvailable: true,
+    emergencyAvailable: false,
+    completedJobsCount: 115,
+    totalEarnings: 78500,
+    trustScore: 93,
+    trustFactors: {
+      idVerified: true,
+      completionRate: 95,
+      punctualityRate: 94,
+      rehireRate: 88,
+      zeroComplaintBadge: true
+    },
+    currentLocation: {
+      lat: 13.0827,
+      lng: 80.2450,
+      addressText: 'Kilpauk Garden Road, Chennai'
+    }
+  },
+  // 11. Ajay Kumar – Painter
+  {
+    _id: '660500000000000000000021',
+    userId: '660000000000000000000021',
+    bio: 'Residential painting professional trained in Asian Paints Royale, damp-proof treatments, dustless wall sanding, and anti-fungal waterproofing.',
+    skills: ['Waterproofing & Primer Seal', 'Wall Crack Patchwork', 'Interior Acrylic Emulsion', 'Texture & Accent Walls'],
+    serviceAreas: ['Thiruvanmiyur', 'ECR', 'Palavakkam', 'Neelankarai'],
+    experienceYears: 8,
+    visitingFee: 149,
+    hourlyRate: 290,
+    rating: 4.81,
+    reviewCount: 68,
+    verified: true,
+    verificationStatus: 'verified',
+    idType: 'Asian Paints Certified Master Painter',
+    isAvailable: true,
+    emergencyAvailable: false,
+    completedJobsCount: 96,
+    totalEarnings: 69800,
+    trustScore: 91,
+    trustFactors: {
+      idVerified: true,
+      completionRate: 94,
+      punctualityRate: 92,
+      rehireRate: 86,
+      zeroComplaintBadge: true
+    },
+    currentLocation: {
+      lat: 12.9830,
+      lng: 80.2594,
+      addressText: 'Thiruvanmiyur Beach Road, Chennai'
+    }
+  },
+  // 12. Manoj Kumar – Laptop Repair Specialist
+  {
+    _id: '660500000000000000000022',
+    userId: '660000000000000000000022',
+    bio: 'Hardware engineer with ESD-safe mobile testing workstation. Chip-level motherboard repairs, cracked screen replacement, SSD upgrades, and heat sink cleaning.',
+    skills: ['MacBook & Windows Chip-Level Repair', 'Cracked Display Replacement', 'Thermal Paste & Fan Overhaul', 'SSD Upgrade & Data Recovery'],
+    serviceAreas: ['Nungambakkam', 'Gopalapuram', 'Royapettah', 'Thousand Lights'],
+    experienceYears: 7,
+    visitingFee: 199,
+    hourlyRate: 400,
+    rating: 4.93,
+    reviewCount: 152,
+    verified: true,
+    verificationStatus: 'verified',
+    idType: 'Apple & CompTIA A+ Certified Engineer',
+    isAvailable: true,
+    emergencyAvailable: true,
+    completedJobsCount: 184,
+    totalEarnings: 112000,
+    trustScore: 98,
+    trustFactors: {
+      idVerified: true,
+      completionRate: 99,
+      punctualityRate: 98,
+      rehireRate: 93,
+      zeroComplaintBadge: true
+    },
+    currentLocation: {
+      lat: 13.0604,
+      lng: 80.2496,
+      addressText: 'Nungambakkam High Road, Chennai'
+    }
+  },
+  // 13. Gokul Raj – Inverter and Battery Technician
+  {
+    _id: '660500000000000000000023',
+    userId: '660000000000000000000023',
+    bio: 'Power backup engineer for Luminous, Microtek, and Exide home inverters. Tubular battery electrolyte check, solar inverter conversions, and changeover repairs.',
+    skills: ['Inverter Circuit Board Repair', 'Tubular Battery Acid & Water Top-Up', 'Automatic Changeover Fix', 'Solar Hybrid Inverter Setup'],
+    serviceAreas: ['Guindy', 'Saidapet', 'Ekkatuthangal', 'Jafferkhanpet'],
+    experienceYears: 6,
+    visitingFee: 139,
+    hourlyRate: 300,
+    rating: 4.87,
+    reviewCount: 82,
+    verified: true,
+    verificationStatus: 'verified',
+    idType: 'Exide & Luminous Certified Battery Pro',
+    isAvailable: true,
+    emergencyAvailable: true,
+    completedJobsCount: 128,
+    totalEarnings: 79000,
+    trustScore: 94,
+    trustFactors: {
+      idVerified: true,
+      completionRate: 97,
+      punctualityRate: 95,
+      rehireRate: 89,
+      zeroComplaintBadge: true
+    },
+    currentLocation: {
+      lat: 13.0067,
+      lng: 80.2025,
+      addressText: 'Guindy Industrial Estate, Chennai'
+    }
+  },
+  // 14. Surya Prakash – General Home Maintenance
+  {
+    _id: '660500000000000000000024',
+    userId: '660000000000000000000024',
+    bio: 'All-around home handyman for precision masonry drilling, TV wall mounts, curtain rod fittings, mirror hangings, and minor electrical fixes.',
+    skills: ['TV Wall Mount & Drilling', 'Curtain Rods & Wall Art', 'Door Stoppers & Latches', 'False Ceiling Inspection'],
+    serviceAreas: ['Anna Nagar', 'Mogappair', 'Nolambur', 'Ambattur'],
+    experienceYears: 5,
+    visitingFee: 99,
+    hourlyRate: 250,
+    rating: 4.77,
+    reviewCount: 64,
+    verified: true,
+    verificationStatus: 'verified',
+    idType: 'Aadhaar Verified & Police Cleared Handyman',
+    isAvailable: true,
+    emergencyAvailable: false,
+    completedJobsCount: 98,
+    totalEarnings: 61500,
+    trustScore: 90,
+    trustFactors: {
+      idVerified: true,
+      completionRate: 93,
+      punctualityRate: 92,
+      rehireRate: 85,
+      zeroComplaintBadge: true
+    },
+    currentLocation: {
+      lat: 13.0890,
+      lng: 80.1750,
+      addressText: 'Mogappair East, Chennai'
+    }
+  },
+  // 15. Balaji R – Smart Home Installation Specialist
+  {
+    _id: '660500000000000000000025',
+    userId: '660000000000000000000025',
+    bio: 'Smart home and IoT automation architect. Installs smart digital locks, video doorbells, automated curtain motors, voice-controlled lighting, and mesh WiFi networks.',
+    skills: ['Smart Fingerprint Locks', 'Video Doorbell Intercom', 'WiFi Smart Switch Touch Panels', 'Mesh WiFi & Smart Hub Setup'],
+    serviceAreas: ['OMR', 'Thoraipakkam', 'Perungudi', 'Sholinganallur', 'Velachery'],
+    experienceYears: 6,
+    visitingFee: 249,
+    hourlyRate: 450,
+    rating: 4.95,
+    reviewCount: 96,
+    verified: true,
+    verificationStatus: 'verified',
+    idType: 'Zigbee & Tuya Certified Smart Home Pro',
+    isAvailable: true,
+    emergencyAvailable: true,
+    completedJobsCount: 132,
+    totalEarnings: 108000,
+    trustScore: 99,
+    trustFactors: {
+      idVerified: true,
+      completionRate: 100,
+      punctualityRate: 99,
+      rehireRate: 95,
+      zeroComplaintBadge: true
+    },
+    currentLocation: {
+      lat: 12.9340,
+      lng: 80.2310,
+      addressText: 'Perungudi Toll Plaza, OMR'
     }
   }
 ];
@@ -917,7 +1563,7 @@ const reviewsData = [
       pricingTransparency: 5
     },
     photos: ['https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=400&q=80'],
-    technicianReply: 'Thank you Mr. Karthik! Glad you loved the ride quality. Next service reminder is scheduled in 3 months on your ServEase Passport.',
+    technicianReply: 'Thank you Mr. Karthik! Glad you loved the ride quality. Next service reminder is scheduled in 3 months on your Smart Service Passport.',
     createdAt: new Date('2026-09-25T16:00:00Z')
   }
 ];

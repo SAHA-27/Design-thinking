@@ -250,7 +250,7 @@ export const ServicePassportPage: React.FC = () => {
               <span>Feature I: Annual Maintenance Contracts (AMC)</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-extrabold text-navy-900">
-              ServEase Care Recurring Maintenance Plans
+              Smart Service Care Recurring Maintenance Plans
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
               Never worry about breakdowns. Pre-scheduled quarterly services, zero visiting charges, and discounts on replacement parts.

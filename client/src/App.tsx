@@ -24,6 +24,7 @@ import { AdminDashboard } from './pages/AdminDashboard';
 import { NotificationsPage } from './pages/NotificationsPage';
 import { ReviewsDisputesPage } from './pages/ReviewsDisputesPage';
 import { CustomerEvidenceReviewPage } from './pages/CustomerEvidenceReviewPage';
+import { CustomerRewardsPage } from './pages/CustomerRewardsPage';
 
 export function App() {
   return (
@@ -37,8 +38,13 @@ export function App() {
                 {/* 1. Landing Page */}
                 <Route path="/" element={<LandingPage />} />
 
-                {/* 2. Sign Up & Login */}
+                {/* 2. Authentication Routes (Sign In, Sign Up, Recovery) */}
                 <Route path="/auth" element={<AuthPage />} />
+                <Route path="/login" element={<AuthPage initialMode="login" />} />
+                <Route path="/signin" element={<Navigate to="/login" replace />} />
+                <Route path="/register" element={<AuthPage initialMode="register" />} />
+                <Route path="/signup" element={<Navigate to="/register" replace />} />
+                <Route path="/forgot-password" element={<AuthPage initialMode="forgot" />} />
 
                 {/* 3. Customer Dashboard */}
                 <Route path="/dashboard" element={<CustomerDashboard />} />
@@ -59,7 +65,7 @@ export function App() {
                 {/* 8. Live Booking Tracking */}
                 <Route path="/track/:id" element={<LiveTrackingPage />} />
 
-                {/* 8b. ServEase ProofCare — Customer Evidence Review */}
+                {/* 8b. Smart Service ProofCare — Customer Evidence Review */}
                 <Route path="/proofcare/review/:id" element={<CustomerEvidenceReviewPage />} />
 
                 {/* 9. AI Service Assistant */}
@@ -71,6 +77,7 @@ export function App() {
                 {/* 11. Service History & Invoices */}
                 <Route path="/bookings" element={<ServiceHistoryInvoicesPage />} />
                 <Route path="/history" element={<ServiceHistoryInvoicesPage />} />
+                <Route path="/rewards" element={<CustomerRewardsPage />} />
 
                 {/* 12. Customer Profile */}
                 <Route path="/profile" element={<CustomerProfilePage />} />

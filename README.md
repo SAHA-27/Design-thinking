@@ -1,8 +1,8 @@
-run# ServEase AI — Smart All-in-One Service Providing Platform
+# Smart Service Booking Platform — Smart All-in-One Service Providing Platform
 
 > *"Every Service, One Smart Platform."*
 
-ServEase AI is a modern, responsive web application that connects customers with verified service professionals for home appliances, vehicles, and everyday maintenance needs. It features AI-powered symptom diagnostics, algorithmic pro matching, transparent price estimation, digital service passports for equipment tracking, live GPS-style tracking with route lines, emergency dispatch modes, and multilingual support (English and Tamil).
+Smart Service Booking Platform is a modern, responsive web application that connects customers with verified service professionals for home appliances, vehicles, and everyday maintenance needs. It features AI-powered symptom diagnostics, algorithmic pro matching, transparent price estimation, digital service passports for equipment tracking, live GPS-style tracking with route lines, emergency dispatch modes, and multilingual support (English and Tamil).
 
 ---
 
@@ -20,6 +20,7 @@ ServEase AI is a modern, responsive web application that connects customers with
 | **H** | **Smart Maintenance Cost Insights** | Annual expense tracking by equipment category and predictive 6-month budget forecasting based on recorded history. |
 | **I** | **Rebooking & Subscription Plans** | 1-click rebooking from history + Annual Maintenance Contracts (AMC) for AC deep cleaning, RO purifier filter renewals, and two-wheeler quarterly care. |
 | **J** | **Multilingual Support (English & Tamil)** | Complete bilingual experience (English & தமிழ்) for navigation, service categories, booking instructions, and support alerts. |
+| **K** | **Customer Loyalty, Bonus & Rewards System** | Automated milestone rewards (Bronze: 5 bookings → ₹100, Silver: 10 → ₹250, Gold: 20 → ₹500, Platinum: 30 → ₹1,000), bonus wallet with checkout redemption, confetti unlock celebrations, and an audited admin control desk. |
 
 ---
 
@@ -77,6 +78,7 @@ e:/Design thinking/
     │   │   ├── ServicePassportPage.tsx
     │   │   ├── ServiceHistoryInvoicesPage.tsx
     │   │   ├── CustomerProfilePage.tsx
+│   │   ├── CustomerRewardsPage.tsx
     │   │   ├── TechnicianDashboard.tsx
     │   │   ├── TechnicianBookingManagement.tsx
     │   │   ├── AdminDashboard.tsx
@@ -129,6 +131,103 @@ During checkout, test our promo code system:
 - `SERVE50` — ₹50 flat discount
 - `SMARTAI` — 15% discount (up to ₹200)
 - `WELCOME100` — ₹100 flat discount on orders ₹499+
+
+---
+
+## 🎁 Customer Loyalty, Bonus, and Rewards System
+
+The platform features an enterprise-grade customer loyalty and rewards architecture designed to foster customer retention and encourage repeat bookings.
+
+### 1. Loyalty Tiers & Automated Milestones
+Customers automatically progress through tiers as verified completed bookings (`status === 'Completed'`) accumulate:
+- **Bronze Member**: **5 completed bookings** → **₹100 bonus**
+- **Silver Member**: **10 completed bookings** → **₹250 bonus**
+- **Gold Member**: **20 completed bookings** → **₹500 bonus**
+- **Platinum Member**: **30 completed bookings** → **₹1,000 bonus**
+
+#### Strict Integrity Rules:
+- Only verified, completed bookings with customer OTP signoff count toward milestones. Cancelled, rejected, or refunded bookings do not count.
+- Milestone rewards are strictly non-duplicate and idempotent.
+- An interactive celebratory modal featuring multi-burst confetti fires when a customer unlocks a new tier.
+
+### 2. Rewards Bonus Wallet & Checkout Redemption
+- Dedicated Customer Rewards Dashboard at `/rewards` with tier status, available balance, lifetime earned bonuses, and an immutable transaction audit ledger.
+- Seamless redemption at checkout (`BookingCheckoutPage.tsx`):
+  - Customers can apply their available wallet bonus directly against service totals.
+  - Transparent itemized breakdown displays the loyalty discount line item.
+  - Balance debits atomically upon booking creation; cancellations automatically restore the redeemed bonus.
+
+### 3. Admin Loyalty Control Center
+Accessible under the **Customer Loyalty & Rewards** tab in `AdminDashboard.tsx`:
+- **Real-Time KPIs**: Total Loyalty Members, Platform Lifetime Bonuses Issued, Total Redeemed at Checkout, and Outstanding Wallet Liability.
+- **Configurable Tiers**: Live thresholds and bonus reward values can be edited and toggled on/off dynamically.
+- **Customer Loyalty Directory**: Search customers by name, email, or phone; inspect completed booking counts, tier badges, and balances.
+- **Audited Manual Adjustments**: Admins can issue audited bonus credits or debits with mandatory notes.
+- **Transaction Audit Ledger**: Filterable by type (`credit` / `debit`) and category (`milestone_reward`, `booking_redemption`, `admin_adjustment`, `booking_refund`).
+
+### 4. Loyalty REST API Endpoints
+| Method | Endpoint | Access | Description |
+|---|---|---|---|
+| `GET` | `/api/loyalty/wallet` | Customer | Get customer wallet, current tier, balance, and next milestone progress |
+| `GET` | `/api/loyalty/transactions` | Customer | Get customer reward transaction audit history |
+| `POST` | `/api/loyalty/celebrate/acknowledge` | Customer | Dismiss and acknowledge milestone unlock celebration |
+| `GET` | `/api/loyalty/admin/summary` | Admin | Get platform loyalty analytics, liabilities, and tier distribution |
+| `GET` | `/api/loyalty/admin/customers` | Admin | List all customer loyalty profiles and balances |
+| `GET` | `/api/loyalty/admin/transactions` | Admin | Full audit transaction ledger with filters |
+| `PUT` | `/api/loyalty/admin/config` | Admin | Configure tier milestones, reward amounts, and program status |
+| `POST` | `/api/loyalty/admin/adjust-balance` | Admin | Issue audited manual balance adjustment (+/-) |
+
+---
+
+## 📱 Phone Number OTP Authentication & SMS Gateway Setup
+
+The platform features a secure, carrier-integrated Phone Number OTP authentication system with native Indian mobile (+91) format validation, anti-abuse rate limiting, HMAC-SHA256 hashed token storage, and support for real telecom gateways.
+
+### 1. Supported SMS Gateways
+
+| Provider | Best For | Required `.env` Variables |
+|---|---|---|
+| **Fast2SMS** (Recommended for India) | Indian 10-digit mobile numbers (+91) without international calling fees | `SMS_PROVIDER=fast2sms`<br>`FAST2SMS_API_KEY=your_key` |
+| **Twilio** | International E.164 SMS delivery | `SMS_PROVIDER=twilio`<br>`TWILIO_ACCOUNT_SID=your_sid`<br>`TWILIO_AUTH_TOKEN=your_token`<br>`TWILIO_PHONE_NUMBER=+1xxx` |
+| **MSG91** | Enterprise Indian DLT-compliant routing | `SMS_PROVIDER=msg91`<br>`MSG91_AUTH_KEY=your_key`<br>`MSG91_TEMPLATE_ID=your_id` |
+| **Development Mode** | Local evaluation without telecom accounts | `SMS_PROVIDER=development` *(Default)* |
+
+### 2. How to Set Up Live SMS Delivery
+
+#### Option A: Fast2SMS (India)
+1. Sign up for a free account at [Fast2SMS](https://www.fast2sms.com/).
+2. Navigate to **Dev API** in the sidebar and copy your Authorization API Key.
+3. In `server/.env`, configure:
+   ```ini
+   SMS_PROVIDER=fast2sms
+   FAST2SMS_API_KEY=your_copied_api_key
+   ```
+4. Restart the backend server (`npm run dev`). OTPs will now be sent as real SMS to your Indian mobile phone!
+
+#### Option B: Twilio
+1. Sign up at [Twilio](https://www.twilio.com/) and acquire a phone number with SMS capability.
+2. If using a Twilio Trial account, add your personal phone number to **Verified Caller IDs** in the Twilio Console (trial accounts restrict delivery to verified numbers only).
+3. In `server/.env`, configure:
+   ```ini
+   SMS_PROVIDER=twilio
+   TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   TWILIO_AUTH_TOKEN=your_auth_token
+   TWILIO_PHONE_NUMBER=+1234567890
+   ```
+
+### 3. Security & Anti-Abuse Controls
+- **Cryptographic Generation**: 6-digit random code generated via Node.js `crypto.randomInt(100000, 1000000)`.
+- **Hashed Storage**: OTPs are hashed using HMAC-SHA256 with a server salt; plain-text OTPs are never stored in the database.
+- **Expiry Window**: 5-minute validity with MongoDB TTL auto-cleanup.
+- **Cooldown & Rate Limiting**: 60-second cooldown between resend requests per phone number, and a maximum of 5 requests per hour.
+- **Attempt Lockout**: Maximum 5 attempts per OTP; automatically invalidated upon exceeding.
+- **Replay Protection**: OTP tokens are deleted immediately upon successful verification so they can never be reused.
+
+### 4. OTP REST API Endpoints
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/auth/send-otp` | Validate 10-digit Indian phone, enforce 60s cooldown, dispatch SMS |
+| `POST` | `/api/auth/verify-otp` | Verify OTP against hash, invalidate token, issue JWT authentication |
 
 ---
 

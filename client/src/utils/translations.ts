@@ -3,7 +3,7 @@ export type Language = 'en' | 'ta';
 export const translations = {
   en: {
     // Brand
-    brandName: 'ServEase AI',
+    brandName: 'Smart Service Booking Platform',
     tagline: 'Every Service, One Smart Platform.',
     
     // Nav
@@ -18,6 +18,7 @@ export const translations = {
     navAdmin: 'Admin Ops',
     navNotifications: 'Notifications',
     navLogin: 'Sign In',
+    navRegister: 'Sign Up',
     navLogout: 'Sign Out',
     demoLogin: 'Quick Demo Login',
 
@@ -32,7 +33,7 @@ export const translations = {
     // Sections
     popularCategoriesTitle: 'Explore Popular Services',
     popularCategoriesSubtitle: 'Select a category to view instant estimates and certified technicians',
-    howItWorksTitle: 'How ServEase AI Works',
+    howItWorksTitle: 'How Smart Service Booking Platform Works',
     howItWorksStep1: 'Describe or AI Diagnose',
     howItWorksDesc1: 'Type your symptom or let our AI troubleshoot causes and suggest the right fix.',
     howItWorksStep2: 'Smart Technician Matching',
@@ -40,7 +41,7 @@ export const translations = {
     howItWorksStep3: 'Transparent Work & Approval',
     howItWorksDesc3: 'Track your pro live, approve revised quotes, and review before/after photo proof.',
 
-    whyChooseTitle: 'Why Choose ServEase AI?',
+    whyChooseTitle: 'Why Choose Smart Service Booking Platform?',
     whyChoose1Title: 'Verified & Background Checked',
     whyChoose1Desc: 'Every professional undergoes identity verification, criminal check, and trade license audits.',
     whyChoose2Title: 'Upfront Transparent Pricing',
@@ -85,7 +86,7 @@ export const translations = {
   },
   ta: {
     // Brand
-    brandName: 'சர்வ்ஈஸ் AI (ServEase AI)',
+    brandName: 'ஸ்மார்ட் சர்வீஸ் புக்கிங் தளம் (Smart Service Booking Platform)',
     tagline: 'ஒவ்வொரு சேவையும், ஒரே ஸ்மார்ட் தளம்.',
 
     // Nav
@@ -100,6 +101,7 @@ export const translations = {
     navAdmin: 'நிர்வாக மையம்',
     navNotifications: 'அறிவிப்புகள்',
     navLogin: 'உள்நுழைக',
+    navRegister: 'பதிவு செய்க',
     navLogout: 'வெளியேறு',
     demoLogin: 'டெமோ நேரடி உள்நுழைவு',
 
@@ -114,7 +116,7 @@ export const translations = {
     // Sections
     popularCategoriesTitle: 'பிரபலமான சேவை பிரிவுகள்',
     popularCategoriesSubtitle: 'கட்டண விவரங்கள் மற்றும் சரிபார்க்கப்பட்ட நிபுணர்களைக் காண ஒரு பிரிவைத் தேர்ந்தெடுக்கவும்',
-    howItWorksTitle: 'சர்வ்ஈஸ் AI எவ்வாறு செயல்படுகிறது?',
+    howItWorksTitle: 'ஸ்மார்ட் சர்வீஸ் புக்கிங் தளம் எவ்வாறு செயல்படுகிறது?',
     howItWorksStep1: 'விவரிக்கவும் அல்லது AI ஆய்வு',
     howItWorksDesc1: 'உங்கள் சாதன பிரச்சனையை தட்டச்சு செய்யவும், AI சரியான தீர்வை பரிந்துரைக்கும்.',
     howItWorksStep2: 'ஸ்மார்ட் நிபுணர் பொருத்தம்',
@@ -122,7 +124,7 @@ export const translations = {
     howItWorksStep3: 'நேரடி கண்காணிப்பு & ஒப்புதல்',
     howItWorksDesc3: 'நிபுணரை நேரலையில் கண்காணிக்கவும், கூடுதல் மேற்கோள்களை அங்கீகரித்து புகைப்பட சான்றை சரிபார்க்கவும்.',
 
-    whyChooseTitle: 'ஏன் சர்வ்ஈஸ் AI-ஐ தேர்ந்தெடுக்க வேண்டும்?',
+    whyChooseTitle: 'ஏன் ஸ்மார்ட் சர்வீஸ் புக்கிங் தளத்தை தேர்ந்தெடுக்க வேண்டும்?',
     whyChoose1Title: 'முழுமையாக சரிபார்க்கப்பட்ட நிபுணர்கள்',
     whyChoose1Desc: 'அனைத்து தொழில்நுட்ப வல்லுநர்களும் அரசு அடையாள அட்டை மற்றும் காவல் துறை சரிபார்ப்புக்கு உட்படுத்தப்படுகின்றனர்.',
     whyChoose2Title: 'முழுமையான வெளிப்படையான விலை',

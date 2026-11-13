@@ -48,7 +48,7 @@ export const ServiceEvidenceReportModal: React.FC<ServiceEvidenceReportModalProp
                   ✓
                 </span>
                 <span className="text-lg font-extrabold text-navy-900 tracking-tight">
-                  ServEase ProofCare™
+                  Smart Service ProofCare™
                 </span>
               </div>
               <p className="text-xs text-slate-500 mt-0.5">

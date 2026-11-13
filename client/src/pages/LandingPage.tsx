@@ -426,7 +426,7 @@ export const LandingPage: React.FC = () => {
             Frequently Asked Questions
           </h2>
           <p className="text-sm text-slate-500 mt-2">
-            Everything you need to know about ServEase AI bookings and warranties.
+            Everything you need to know about Smart Service Booking Platform bookings and warranties.
           </p>
         </div>
 

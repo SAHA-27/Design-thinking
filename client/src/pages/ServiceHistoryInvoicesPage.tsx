@@ -146,7 +146,7 @@ export const ServiceHistoryInvoicesPage: React.FC = () => {
                 {/* Invoice Header */}
                 <div className="flex justify-between items-start border-b border-slate-200 pb-5">
                   <div>
-                    <h2 className="text-xl font-extrabold text-navy-900 tracking-tight">ServEase AI Technologies</h2>
+                    <h2 className="text-xl font-extrabold text-navy-900 tracking-tight">Smart Service Technologies</h2>
                     <p className="text-xs text-slate-500">GSTIN: 33AAACS9981B1Z2 • CIN: U72900TN2026PTC10982</p>
                     <p className="text-xs text-slate-500">Anna Nagar East, Chennai - 600040</p>
                   </div>
@@ -240,7 +240,7 @@ export const ServiceHistoryInvoicesPage: React.FC = () => {
                 </div>
 
                 <div className="p-3 rounded-xl bg-slate-50 text-[11px] text-slate-500 text-center border border-slate-100">
-                  This is a computer-generated tax invoice backed by the ServEase 30-Day Service Guarantee.
+                  This is a computer-generated tax invoice backed by the Smart Service 30-Day Service Guarantee.
                 </div>
               </div>
 

@@ -16,7 +16,7 @@ export const Footer: React.FC = () => {
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-500 text-white shadow-sm">
                 <Zap className="h-5 w-5 fill-white" />
               </div>
-              <span className="text-xl font-extrabold text-white tracking-tight">ServEase AI</span>
+              <span className="text-xl font-extrabold text-white tracking-tight">Smart Service Booking Platform</span>
             </div>
             <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
               Every Service, One Smart Platform. Connecting homeowners and vehicle owners with certified, background-checked service professionals.
@@ -66,7 +66,7 @@ export const Footer: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-teal-400 shrink-0" />
-                <span>support@servease.ai</span>
+                <span>support@smartservice.ai</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-teal-400 shrink-0" />
@@ -78,7 +78,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t border-navy-900 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>© 2026 ServEase AI Technologies Pvt Ltd. All rights reserved.</p>
+          <p>© 2026 Smart Service Booking Platform Technologies Pvt Ltd. All rights reserved.</p>
           <div className="flex gap-6">
             <span className="hover:text-slate-400 transition cursor-pointer">Terms of Service</span>
             <span className="hover:text-slate-400 transition cursor-pointer">Privacy Policy</span>

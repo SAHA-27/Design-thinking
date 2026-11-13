@@ -15,12 +15,26 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 
 exports.searchTechnicians = async (req, res) => {
   try {
-    const { skill, area, emergency, minRating, customerLat = 13.0827, customerLng = 80.2707 } = req.query;
+    const { 
+      skill, 
+      category,
+      area, 
+      emergency, 
+      minRating, 
+      minTrust, 
+      maxDistance, 
+      maxPrice, 
+      search, 
+      q,
+      sortBy = 'recommended',
+      customerLat = 13.0827, 
+      customerLng = 80.2707 
+    } = req.query;
     const { isDb, TechnicianProfile, User, mem } = getStore();
 
     let profiles = [];
     if (isDb) {
-      profiles = await TechnicianProfile.find().populate('userId', 'name email phone avatar');
+      profiles = await TechnicianProfile.find().populate('userId', 'name email phone avatar').lean();
     } else {
       profiles = mem.technicianProfiles.map(p => {
         const user = mem.users.find(u => u._id.toString() === p.userId.toString()) || {};
@@ -44,10 +58,23 @@ exports.searchTechnicians = async (req, res) => {
       results = results.filter(p => p.emergencyAvailable && p.isAvailable);
     }
 
-    if (skill) {
-      const qSkill = skill.toLowerCase();
+    const tradeFilter = skill || category;
+    if (tradeFilter) {
+      const qSkill = tradeFilter.toLowerCase();
       results = results.filter(p => 
-        p.skills && p.skills.some(s => s.toLowerCase().includes(qSkill))
+        (p.skills && p.skills.some(s => s.toLowerCase().includes(qSkill))) ||
+        (p.bio && p.bio.toLowerCase().includes(qSkill))
+      );
+    }
+
+    const keyword = search || q;
+    if (keyword) {
+      const qKey = keyword.toLowerCase().trim();
+      results = results.filter(p =>
+        (p.userId?.name && p.userId.name.toLowerCase().includes(qKey)) ||
+        (p.bio && p.bio.toLowerCase().includes(qKey)) ||
+        (p.skills && p.skills.some(s => s.toLowerCase().includes(qKey))) ||
+        (p.serviceAreas && p.serviceAreas.some(a => a.toLowerCase().includes(qKey)))
       );
     }
 
@@ -62,11 +89,19 @@ exports.searchTechnicians = async (req, res) => {
       results = results.filter(p => p.rating >= Number(minRating));
     }
 
+    if (minTrust) {
+      results = results.filter(p => (p.trustScore || 85) >= Number(minTrust));
+    }
+
+    if (maxPrice) {
+      results = results.filter(p => (p.visitingFee || 149) <= Number(maxPrice));
+    }
+
     // Calculate smart match score & distance & ETA
     const cLat = Number(customerLat);
     const cLng = Number(customerLng);
 
-    const scoredResults = results.map(tech => {
+    let scoredResults = results.map(tech => {
       const techLat = tech.currentLocation?.lat || 13.0827;
       const techLng = tech.currentLocation?.lng || 80.2707;
       const distanceKm = calculateDistance(cLat, cLng, techLat, techLng);
@@ -91,8 +126,13 @@ exports.searchTechnicians = async (req, res) => {
       if (tech.emergencyAvailable) recommendationReasons.push(`Express 25-min Dispatch Ready`);
       if (tech.trustFactors?.completionRate >= 95) recommendationReasons.push(`${tech.trustFactors.completionRate}% Job Completion Track Record`);
 
+      const specialization = tech.specialization || (tech.skills && tech.skills[0]) || 'Certified Multi-Trade Specialist';
+      const category = tech.category || (tech.skills && tech.skills[0]) || 'General Maintenance';
+
       return {
         ...tech,
+        specialization,
+        category,
         distanceKm,
         estimatedArrivalMins,
         matchScore: matchPercentage,
@@ -100,8 +140,28 @@ exports.searchTechnicians = async (req, res) => {
       };
     });
 
-    // Sort by best match score descending
-    scoredResults.sort((a, b) => b.matchScore - a.matchScore);
+    if (maxDistance) {
+      scoredResults = scoredResults.filter(p => p.distanceKm <= Number(maxDistance));
+    }
+
+    // Sort by requested sorting option
+    scoredResults.sort((a, b) => {
+      switch (sortBy) {
+        case 'rating':
+          return (b.rating || 0) - (a.rating || 0);
+        case 'distance':
+          return (a.distanceKm || 0) - (b.distanceKm || 0);
+        case 'price':
+          return (a.visitingFee || 0) - (b.visitingFee || 0);
+        case 'trust':
+          return (b.trustScore || 0) - (a.trustScore || 0);
+        case 'eta':
+          return (a.estimatedArrivalMins || 0) - (b.estimatedArrivalMins || 0);
+        case 'recommended':
+        default:
+          return b.matchScore - a.matchScore;
+      }
+    });
 
     res.json({
       success: true,
@@ -123,13 +183,13 @@ exports.getTechnicianById = async (req, res) => {
     let reviews = [];
 
     if (isDb) {
-      profile = await TechnicianProfile.findById(id).populate('userId', 'name email phone avatar');
+      profile = await TechnicianProfile.findById(id).populate('userId', 'name email phone avatar').lean();
       if (!profile) {
         // try finding by userId
-        profile = await TechnicianProfile.findOne({ userId: id }).populate('userId', 'name email phone avatar');
+        profile = await TechnicianProfile.findOne({ userId: id }).populate('userId', 'name email phone avatar').lean();
       }
-      if (profile) {
-        reviews = await Review.find({ technicianId: profile.userId._id }).populate('customerId', 'name avatar');
+      if (profile && profile.userId) {
+        reviews = await Review.find({ technicianId: profile.userId._id }).populate('customerId', 'name avatar').lean();
       }
     } else {
       profile = mem.technicianProfiles.find(p => p._id.toString() === id.toString() || p.userId.toString() === id.toString());

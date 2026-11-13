@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const loyaltyService = require('../services/loyaltyService');
 const { getStore } = require('../services/dataStore');
 const { getChecklistForCategory } = require('../services/proofCareChecklists');
 
@@ -492,6 +493,9 @@ exports.verifyCompletionOtp = async (req, res) => {
       booking.payment.paidAt = verifiedAt;
       booking.serviceProof.customerApproved = true;
 
+      // Loyalty Program: process rewards for verified completed booking
+      await loyaltyService.processBookingCompletionLoyalty(booking._id);
+
       await booking.save();
 
       // Update registered passport asset if linked
@@ -570,6 +574,9 @@ exports.verifyCompletionOtp = async (req, res) => {
       mem.bookings[idx].payment.paidAt = verifiedAt;
       mem.bookings[idx].serviceProof.customerApproved = true;
 
+      // Loyalty Program: process rewards for verified completed booking
+      await loyaltyService.processBookingCompletionLoyalty(mem.bookings[idx]._id);
+
       return res.json({
         success: true,
         message: 'Service completion verified with OTP! Evidence report generated.',
@@ -617,7 +624,7 @@ exports.getEvidenceReport = async (req, res) => {
       technician: {
         name: booking.technicianId?.name || 'Assigned Technician',
         phone: booking.technicianId?.phone || '+91 97890 54321',
-        accreditation: 'ServEase Certified Professional'
+        accreditation: 'Smart Service Certified Professional'
       },
       checkIn: booking.proofCare?.checkIn || {
         checkedInAt: booking.createdAt,

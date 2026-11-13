@@ -15,7 +15,7 @@ const connectDB = async () => {
     console.log(`✅ MongoDB Connected to: ${conn.connection.host}`);
   } catch (error) {
     console.warn(`⚠️ MongoDB connection failed (${error.message}).`);
-    console.log(`⚡ Switching to ServEase Resilient In-Memory / File Mock Store for seamless standalone operation.`);
+    console.log(`⚡ Switching to Smart Service Resilient In-Memory / File Mock Store for seamless standalone operation.`);
     isConnected = false;
     useMockStore = true;
   }

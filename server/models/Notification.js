@@ -8,7 +8,18 @@ const notificationSchema = new mongoose.Schema({
   messageTa: { type: String, default: '' },
   type: {
     type: String,
-    enum: ['booking_update', 'quote_received', 'maintenance_reminder', 'emergency_alert', 'payment_success', 'admin_announcement'],
+    enum: [
+      'booking_update',
+      'quote_received',
+      'maintenance_reminder',
+      'emergency_alert',
+      'payment_success',
+      'admin_announcement',
+      'reward_earned',
+      'tier_unlocked',
+      'reward_redeemed',
+      'reward_expiring'
+    ],
     default: 'booking_update'
   },
   referenceId: { type: String, default: '' }, // e.g. bookingId or assetId

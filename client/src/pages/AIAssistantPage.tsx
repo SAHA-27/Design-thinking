@@ -30,7 +30,7 @@ export const AIAssistantPage: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: 'ai',
-      text: "👋 Hello! I am ServEase AI, your intelligent diagnostic assistant.\n\nDescribe any issue with your home appliances (AC, RO purifier, washing machine, refrigerator) or vehicle (bike, car), and I'll analyze possible causes, ask diagnostic questions, and estimate service costs."
+      text: "👋 Hello! I am your AI diagnostic assistant for the Smart Service Booking Platform.\n\nDescribe any issue with your home appliances (AC, RO purifier, washing machine, refrigerator) or vehicle (bike, car), and I'll analyze possible causes, ask diagnostic questions, and estimate service costs."
     }
   ]);
   const [loading, setLoading] = useState(false);

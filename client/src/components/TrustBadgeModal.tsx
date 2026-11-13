@@ -53,7 +53,7 @@ export const TrustBadgeModal: React.FC<TrustBadgeModalProps> = ({
         {/* Big Score Gauge */}
         <div className="rounded-xl bg-gradient-to-r from-navy-900 to-navy-800 p-5 text-white flex items-center justify-between mb-5 shadow-inner">
           <div>
-            <div className="text-xs uppercase tracking-wider text-teal-400 font-semibold">ServEase Verified Index</div>
+            <div className="text-xs uppercase tracking-wider text-teal-400 font-semibold">Smart Service Verified Index</div>
             <div className="flex items-baseline gap-2 mt-1">
               <span className="text-4xl font-extrabold text-white">{trustScore}</span>
               <span className="text-slate-300 font-medium text-lg">/ 100</span>

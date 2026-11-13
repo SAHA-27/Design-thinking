@@ -33,6 +33,7 @@ const bookingSchema = new mongoose.Schema({
     estimatedParts: { type: Number, default: 0 },
     taxGst: { type: Number, default: 90 },
     discount: { type: Number, default: 0 },
+    loyaltyDiscount: { type: Number, default: 0 },
     total: { type: Number, default: 589 }
   },
 
@@ -182,6 +183,9 @@ const bookingSchema = new mongoose.Schema({
   cancelledBy: { type: String, enum: ['customer', 'technician', 'admin', 'none'], default: 'none' },
   
   registeredAssetId: { type: mongoose.Schema.Types.ObjectId, ref: 'RegisteredAsset' },
+
+  // Loyalty Program: Idempotency flag preventing duplicate milestone calculations
+  loyaltyProcessed: { type: Boolean, default: false },
 
   createdAt: { type: Date, default: Date.now }
 });

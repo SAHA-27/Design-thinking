@@ -346,7 +346,7 @@ export const LiveTrackingPage: React.FC = () => {
               isSimulating={isSimulating}
             />
 
-            {/* ServEase ProofCare Signature Banner */}
+            {/* Smart Service ProofCare Signature Banner */}
             <div className="rounded-3xl bg-gradient-to-r from-teal-900 to-navy-900 p-5 text-white shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-teal-700/50">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-500 text-white shrink-0 shadow-xs">
@@ -354,7 +354,7 @@ export const LiveTrackingPage: React.FC = () => {
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-extrabold uppercase tracking-wider text-teal-300">ServEase ProofCare™ Active</span>
+                    <span className="text-xs font-extrabold uppercase tracking-wider text-teal-300">Smart Service ProofCare™ Active</span>
                     <span className="rounded-md bg-teal-800 text-[10px] px-1.5 py-0.5 text-teal-200 font-mono font-bold">
                       Stage: {booking.proofCare?.currentStage || 'Verified Process'}
                     </span>

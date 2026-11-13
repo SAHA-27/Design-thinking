@@ -29,7 +29,7 @@ export const ReviewsDisputesPage: React.FC = () => {
         rating: 5,
         comment: 'Exceptional service! Manoj arrived exactly on time with all proper tools. My Activa feels super smooth after the engine oil replacement and brake adjustment.',
         date: '2026-09-25',
-        technicianReply: 'Thank you Mr. Karthik! Next service reminder is scheduled in 3 months on your ServEase Passport.'
+        technicianReply: 'Thank you Mr. Karthik! Next service reminder is scheduled in 3 months on your Smart Service Passport.'
       },
       {
         id: 'rev-2',
@@ -123,7 +123,7 @@ export const ReviewsDisputesPage: React.FC = () => {
                 <span>File Dispute / Warranty Complaint</span>
               </div>
               <p className="text-xs text-slate-500">
-                Backed by ServEase 30-Day Guarantee. Admin Operations reviews within 2 hours.
+                Backed by Smart Service 30-Day Guarantee. Admin Operations reviews within 2 hours.
               </p>
 
               <form onSubmit={handleFileDispute} className="space-y-3.5">

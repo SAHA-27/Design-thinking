@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const path = require('path');
 const { connectDB, isDbConnected } = require('./config/db');
 
 // Load environment variables
@@ -16,6 +17,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/avatars', express.static(path.join(__dirname, '../client/public/avatars')));
 
 // Request logger
 app.use((req, res, next) => {
@@ -34,6 +36,7 @@ const adminRoutes = require('./routes/adminRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const proofCareRoutes = require('./routes/proofCareRoutes');
+const loyaltyRoutes = require('./routes/loyaltyRoutes');
 
 // Mount Routes
 app.use('/api/auth', authRoutes);
@@ -46,12 +49,13 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/proofcare', proofCareRoutes);
+app.use('/api/loyalty', loyaltyRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'online',
-    service: 'ServEase AI API',
+    service: 'Smart Service Booking Platform API',
     database: isDbConnected() ? 'MongoDB Atlas / Connected' : 'Resilient In-Memory Hybrid Store',
     timestamp: new Date().toISOString()
   });
@@ -75,14 +79,14 @@ app.post('/api/seed', async (req, res) => {
 
 // Root route
 app.get('/', (req, res) => {
-  res.send('ServEase AI Backend Server is running. Access API endpoints at /api/...');
+  res.send('Smart Service Booking Platform Backend Server is running. Access API endpoints at /api/...');
 });
 
 // Start Server and Database
 const startServer = async () => {
   await connectDB();
   app.listen(PORT, () => {
-    console.log(`🚀 ServEase AI Server running on port ${PORT}`);
+    console.log(`🚀 Smart Service Booking Platform Server running on port ${PORT}`);
     console.log(`📡 Base API URL: http://localhost:${PORT}/api`);
   });
 };

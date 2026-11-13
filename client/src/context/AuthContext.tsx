@@ -25,7 +25,7 @@ interface AuthContextType {
   token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (emailOrPhone: string, password: string) => Promise<boolean>;
   quickDemoLogin: (role: 'customer' | 'technician' | 'admin') => Promise<boolean>;
   register: (data: any) => Promise<boolean>;
   logout: () => void;
@@ -64,9 +64,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     fetchMe();
   }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (emailOrPhone: string, password: string): Promise<boolean> => {
     try {
-      const res = await api.post('/auth/login', { email, password });
+      const res = await api.post('/auth/login', { email: emailOrPhone, password });
       if (res.data.success) {
         const { token: receivedToken, user: receivedUser } = res.data;
         localStorage.setItem('servease_token', receivedToken);
@@ -77,8 +77,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return false;
     } catch (err: any) {
       console.error('Login error:', err);
-      alert(err.response?.data?.message || 'Login failed.');
-      return false;
+      throw err;
     }
   };
 
@@ -112,9 +111,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return false;
     } catch (err: any) {
       console.error('Registration error:', err);
-      const msg = err.response?.data?.message || err.message || 'Registration failed.';
-      alert(msg);
-      return false;
+      throw err;
     }
   };
 

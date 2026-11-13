@@ -1,7 +1,7 @@
 {
-  "name": "servease-ai",
+  "name": "smart-service-booking-platform",
   "version": "1.0.0",
-  "description": "ServEase AI — Smart All-in-One Service Providing Platform",
+  "description": "Smart Service Booking Platform — Smart All-in-One Service Providing Platform",
   "scripts": {
     "install-all": "npm install && cd server && npm install && cd ../client && npm install",
     "server": "cd server && npm run dev",
@@ -23,6 +23,6 @@
     "express",
     "mongodb"
   ],
-  "author": "ServEase AI Team",
+  "author": "Smart Service Booking Platform Team",
   "license": "MIT"
 }

@@ -1,7 +1,7 @@
 {
-  "name": "servease-ai-server",
+  "name": "smart-service-booking-platform-server",
   "version": "1.0.0",
-  "description": "Backend API for ServEase AI Platform",
+  "description": "Backend API for Smart Service Booking Platform",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -14,7 +14,8 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.3.1"
+    "mongoose": "^8.3.1",
+    "sharp": "^0.35.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
